@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 c0e3f190e9f090648ce46dcf976bcee1fabc9b8e himar <himar@DESKTOP-1PIPS59> 1516618172 +0100	commit (initial): Commit 22/01/2018
+c0e3f190e9f090648ce46dcf976bcee1fabc9b8e 03af70d39c608e4bec892eb145716a35d89462e1 himar <himar@DESKTOP-1PIPS59> 1516618247 +0100	commit: commit 22/08/2018
+03af70d39c608e4bec892eb145716a35d89462e1 8ea46e78c4ff51b1ee9bd3a38dd0253767f581ba himar <himar@DESKTOP-1PIPS59> 1516618374 +0100	commit: Commit 22/01/2018
+8ea46e78c4ff51b1ee9bd3a38dd0253767f581ba 7e5dc2ec4bb5a884cb58659de5b489dcd0cee95f himar <himar@DESKTOP-1PIPS59> 1517228221 +0100	commit: Lanzamiento dados en fichero 29/01/2018
+7e5dc2ec4bb5a884cb58659de5b489dcd0cee95f a8534b03ad6a56cd5c0c0ab7419fb1d2c8e70270 himar <himar@DESKTOP-1PIPS59> 1517296562 +0100	commit: Lanzamineto dados
+a8534b03ad6a56cd5c0c0ab7419fb1d2c8e70270 7b0e15c2133297232f4c842631102e9c2c186571 himar <himar@DESKTOP-1PIPS59> 1517834152 +0100	commit: Crear un método que lea el fichero y devuelva un ArrayList de Vehiculo

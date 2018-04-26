@@ -1,0 +1,52 @@
+1%Araba/Álava%16%1500
+2%Albacete%8%1200
+3%Alicante/Alacant%10%2000
+4%Almería%1%2500
+5%Ávila%7%1250
+6%Badajoz%11%1000
+7%Balears, Illes%4%2300
+8%Barcelona%9%40000
+9%Burgos%7%450
+10%Cáceres%11%1200
+11%Cádiz%1%1000
+12%Castellón/Castelló%10%2000
+13%Ciudad Real%8%1300
+14%Córdoba%1%1000
+15%Coruña, A%12%1100
+16%Cuenca%8%1000
+17%Girona%9%500
+18%Granada%1%1200
+19%Guadalajara%8%2000
+20%Gipuzkoa%16%1000
+21%Huelva%1%1100
+22%Huesca%2%500
+23%Jaén%1%300
+24%León%7%400
+25%Lleida%9%400
+26%Rioja, La%17%100
+27%Lugo%12%120
+28%Madrid%13%3000
+29%Málaga%1%100
+30%Murcia%14%200
+31%Navarra%15%300
+32%Ourense%12%150
+33%Asturias%3%200
+34%Palencia%7%200
+35%Palmas, Las%5%200
+36%Pontevedra%12%300
+37%Salamanca%7%400
+38%Santa Cruz de Tenerife%5%250
+39%Cantabria%6%350
+40%Segovia%7%300
+41%Sevilla%1%150
+42%Soria%7%130
+43%Tarragona%9%150
+44%Teruel%2%200
+45%Toledo%8%300
+46%Valencia/Valéncia%10%250
+47%Valladolid%7%200
+48%Bizkaia%16%150
+49%Zamora%7%300
+50%Zaragoza%2%350
+51%Ceuta%18%200
+52%Melilla%19%100

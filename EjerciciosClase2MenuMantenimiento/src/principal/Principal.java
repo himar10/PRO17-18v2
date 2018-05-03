@@ -20,6 +20,7 @@ import modelo.dao.AccesoDatos;
 
 public class Principal {
 	// metodo por el que debe empezar la ejecución ..
+	public static String bd2;
 	public static void main(String[] args) {
 		/*
 		 * Persona persona; persona = new Persona();
@@ -180,7 +181,10 @@ public class Principal {
 		//ad.consultaPAdronCAProvincias2();
 		//ad.consultaPAdronCAProvincias2();
 		//System.out.println("fin");
+	
+		
 		ad.menu();
+		
 
 	}
 

@@ -139,15 +139,30 @@ public class AccesoDatos {
 
 		String tecleado = "XYZ";
 		while (tecleado.compareToIgnoreCase("q") != 0) {
-			System.out.println("\t\t ||||||||||||||||||||||||||||||||");
-			System.out.println("\t\t ||||||| MENU PRINCIPAL  ||||||||");
-			System.out.println("\t\t ||||||||||||||||||||||||||||||||");
-			System.out.println("\t\t |||||||||  Opcion 1  |||||||||||");
-			System.out.println("\t\t |||||||||  Opcion 2  |||||||||||");
-			System.out.println("\t\t |||||||||  Opcion 3  |||||||||||");
-			System.out.println("\t\t |||||||||  Opcion 4  |||||||||||");
-			System.out.println("\t\t ||||  Press Q or q to EXIT  ||||");
-			System.out.println("\t\t ||||||||||||||||||||||||||||||||");
+			System.out.println("\t\t||||||||||||||||||||||||||||||||");
+			System.out.println("\t\t||||||| MENU PRINCIPAL  ||||||||");
+			System.out.println("\t\t||||||||||||||||||||||||||||||||");
+			System.out.println("\n\t\t--------------------------------");
+			System.out.println("\t\t--------------------------------");
+			System.out.println("\t\t|||||||||  Opcion 1  |||||||||||");
+			System.out.println("\nEsta opcion se usa para mostrar un todos los registros de cualquiera de las\n\ttablas en una base de datos que seleccionemos ");
+			System.out.println("\n\t\t--------------------------------");
+			System.out.println("\t\t--------------------------------");
+			System.out.println("\t\t|||||||||  Opcion 2  |||||||||||");
+			System.out.println("\nEsta opcion se usa para insertar un nuevo registro en cualquiera de las\n\ttablas en una base de datos que seleccionemos ");
+			System.out.println("\n\t\t--------------------------------");
+			System.out.println("\t\t--------------------------------");
+			System.out.println("\t\t|||||||||  Opcion 3  |||||||||||");
+			System.out.println("\nEsta opcion se usa para actualizar un registro en cualquiera de las\n\ttablas en una base de datos que seleccionemos ");
+			System.out.println("\n\t\t--------------------------------");
+			System.out.println("\t\t--------------------------------");
+			System.out.println("\t\t|||||||||  Opcion 4  |||||||||||");
+			System.out.println("\nEsta opcion se usa para eliminar un registro en cualquiera de las\n\ttablas en una base de datos que seleccionemos ");
+			System.out.println("\n\t\t--------------------------------");
+			System.out.println("\t\t--------------------------------");
+			System.out.println("\t\t||||||||||||||||||||||||||||||||");
+			System.out.println("\t\t||||  Press Q or q to EXIT  ||||");
+			System.out.println("\t\t||||||||||||||||||||||||||||||||");
 			Scanner teclado = new Scanner(System.in);
 			System.out.println("\n\t Selecione una opcion");
 			System.out.print("\nOpcion: ");
@@ -155,20 +170,24 @@ public class AccesoDatos {
 			System.out.println("\nUsted ha tecleado la opcion: " + tecleado);
 			switch (tecleado) {
 			case "1":
-				System.out.println("\nEsta opcion se usa para mostrar todos los datos de cualquier\ntabla en una base de datos que seleccionemos");
+				System.out.println("\n");
 				showDB();
 				//seleccionarBD();
-				seleccionarTable();
+				//seleccionarTable();
 				opcion1Select();
+				System.exit(0);
 			case "2":
-				System.out.println("Has seleccionado la opcion 2");
-				break;
+				//System.out.println("Has seleccionado la opcion 2");
+				System.out.println("\n");
+				showDB();
+				opcion2Insert();
+				System.exit(0);
 			case "3":
 				System.out.println("Has seleccionado la opcion 3");
-				break;
+				System.exit(0);
 			case "4":
 				System.out.println("Has seleccionado la opcion 4");
-				break;
+				System.exit(0);
 			default:
 				System.out.println("\n Solo números entre 1 y 4");
 			}
@@ -187,10 +206,12 @@ public class AccesoDatos {
             ResultSet rs = stm.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			System.out.println("\nLISTADO DE BASES DE DATOS: \n");
+			int contador = 1;
 			while (rs.next()) {
 
 				for (int i = 1; i <= metaData.getColumnCount(); i++) {
-					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
+					System.out.print(contador + " - " + rs.getString(i) + "\t");
+					contador++;
 				}
 				System.out.println();
 			}
@@ -210,8 +231,10 @@ public class AccesoDatos {
 	public String seleccionarBD() {
 		
 		Scanner teclado = new Scanner(System.in);
-		System.out.println("\nEscriba el nombre de alguna de las siguientes BD: \n");
+		System.out.println("\nEscriba exactamente el nombre de alguna de las anteriores BD, tal cual aparecen: \n");
 		bd = teclado.nextLine();
+		
+		//teclado.skip("\n");
 		//System.out.println(bd);
 		return bd;
 		
@@ -219,7 +242,7 @@ public class AccesoDatos {
 	}
 	
 	
-	public void seleccionarTable() {
+	public String seleccionarTable() {
 		String bd2 = seleccionarBD();
 		try {
 			
@@ -230,13 +253,16 @@ public class AccesoDatos {
             ResultSet rs = stm.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			System.out.println("\nLISTADO DE TABLAS DE LA BD: " + bd2);
+			System.out.println("\n");
+			int contador = 1;
 			while (rs.next()) {
 
 				for (int i = 1; i <= metaData.getColumnCount(); i++) {
-					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
+					System.out.println( contador + " - " + rs.getString(i) + "\t");
+					contador++;
 				break;
 				}
-				System.out.println();
+				//System.out.println("fin");
 			}
 			//System.out.println("Escriba el nombre de alguna de las tablas: ");
 			//bd = teclado.nextLine();
@@ -248,17 +274,18 @@ public class AccesoDatos {
 			System.out.println(e.getMessage());
 		}
 		
-		//return bd;
+		return bd2;
 
 	}
 	
+	
 	public void opcion1Select() {
-		//seleccionarBD();
+		String bd2 = seleccionarTable();
 		//System.out.println("En esta opción podra realizar consultas.");
 		System.out.println("\nEscriba el nombre de alguna de las siguientes tablas de la que desea consultar todos sus datos: ");
 		try {
 			Scanner teclado = new Scanner(System.in);
-			Connection conexion = this.conexion("localhost", "paro", "root", "");
+			Connection conexion = this.conexion("localhost", bd2 , "root", "");
 	        
 			String tabla = teclado.nextLine();
 			String sql = "SELECT * FROM " + tabla;
@@ -275,6 +302,84 @@ public class AccesoDatos {
 			
 			stm.close();
 			rs.close();
+			System.out.println("\n");
+			System.out.println("¿Desea seguir usando el programa?");
+			System.out.println("Escriba si en caso afirmativo o cualquier otra cosa para salir");
+			String validar = teclado.nextLine();
+			String si = "SI";
+			if(validar.equalsIgnoreCase(si)) {
+				menu();
+			}else {
+				System.out.println("Hasta la próxima");
+				System.exit(0);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+	
+	
+	public void opcion2Insert() {
+		String bd2 = seleccionarTable();
+		//System.out.println("En esta opción podra realizar consultas.");
+		System.out.println("\nEscriba el nombre de alguna de las siguientes tablas en la que desea insertar el registro: ");
+		
+		try {
+			Scanner teclado = new Scanner(System.in);
+			Connection conexion = this.conexion("localhost", bd2 , "root", "");
+			String tabla = teclado.nextLine();
+			String sql1 = "SELECT * FROM " + tabla;
+			//SELECCIONAMOS LA TABLA PARA SABER QUE ESTRUCTURA TIENE ESA TABLE ES DECIR CUANTOS CAMPOS Y PODER 
+			//ESCRIBIR LA SENTENCIA BIEN
+			
+			Statement stm = conexion.createStatement();
+			ResultSet rs = stm.executeQuery(sql1);
+			ResultSetMetaData metaData = rs.getMetaData();
+			System.out.println("La tabla " + tabla + " tiene esta estructura: ");
+			
+			while (rs.next()) {
+				System.out.println("\n");
+				for (int i = 1; i <= metaData.getColumnCount(); i++) {
+					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
+					
+				}
+				break;
+				//System.out.println();
+			}
+			rs.close();
+			System.out.println("\n");
+			System.out.println("\nEscriba tantos valores como columnas haya, entre comillas simples y separados por coma.");
+			System.out.println("Ejemplo con 3 columnas: '71', '50', '90' ");
+			String value = teclado.nextLine();
+			String sql = "INSERT INTO " + tabla + " VALUES (" + value + ");";
+            
+            
+			
+			System.out.println("Su sentencia para insertar un registro a sido: " + "'" + sql + "'" );
+			System.out.println("Si su sentencia es correcta escriba 'SI' en caso contrario no se ejecutara la sentencia");
+			String validar = teclado.nextLine();
+			String si = "SI";
+			if(validar.equalsIgnoreCase(si)) {
+				int rs1 = stm.executeUpdate(sql);
+				//ResultSetMetaData metaData = rs.getMetaData();
+				System.out.println("Sus datos han sido insertados, use la opcion 1 para encontrarlos");
+			}else {
+				System.out.println("Su sentencia no es correcta y por lo tanto, su registro no ha sido insertado.");
+			}
+			stm.close();
+			System.out.println("\n");	
+			System.out.println("¿Desea seguir usando el programa?");
+			System.out.println("Escriba si en caso afirmativo o cualquier otra cosa para salir");
+			validar = teclado.nextLine();
+			if(validar.equalsIgnoreCase(si)) {
+				menu();
+			}else {
+				System.out.println("Hasta la próxima");
+				System.exit(0);
+			}
+			
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

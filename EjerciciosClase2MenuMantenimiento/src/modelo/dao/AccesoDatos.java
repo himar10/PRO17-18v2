@@ -183,8 +183,12 @@ public class AccesoDatos {
 				opcion2Insert();
 				System.exit(0);
 			case "3":
-				System.out.println("Has seleccionado la opcion 3");
+				System.out.println("\n");
+				showDB();
+				opcion3Update();
 				System.exit(0);
+				//System.out.println("Has seleccionado la opcion 3");
+				//System.exit(0);
 			case "4":
 				System.out.println("Has seleccionado la opcion 4");
 				System.exit(0);
@@ -387,6 +391,51 @@ public class AccesoDatos {
 
 	}
 	
+	
+	public void opcion3Update() {
+		String bd2 = seleccionarTable();
+		//System.out.println("En esta opción podra realizar consultas.");
+		System.out.println("\nEscriba el nombre de alguna de las siguientes tablas de la que desea consultar todos sus datos: ");
+		try {
+			Scanner teclado = new Scanner(System.in);
+			Connection conexion = this.conexion("localhost", bd2 , "root", "");
+	        
+			String tabla = teclado.nextLine();
+			String sql = "SELECT * FROM " + tabla;
+            Statement stm = conexion.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+			ResultSetMetaData metaData = rs.getMetaData();
+			while (rs.next()) {
+				System.out.println("tablas: ");
+				for (int i = 1; i <= metaData.getColumnCount(); i++) {
+					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
+				}
+				System.out.println();
+			}
+			System.out.println("Escriba una sentencia valida para realizar el update en una tabla");
+			String sentencia = teclado.nextLine();
+			String sql2 =  sentencia;
+			int rs1 = stm.executeUpdate(sql2);
+
+			stm.close();
+			rs.close();
+			System.out.println("\n");
+			System.out.println("¿Desea seguir usando el programa?");
+			System.out.println("Escriba si en caso afirmativo o cualquier otra cosa para salir");
+			String validar = teclado.nextLine();
+			String si = "SI";
+			if(validar.equalsIgnoreCase(si)) {
+				menu();
+			}else {
+				System.out.println("Hasta la próxima");
+				System.exit(0);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
 	
 	
 	

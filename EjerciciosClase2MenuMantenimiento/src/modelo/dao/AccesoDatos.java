@@ -21,6 +21,8 @@ public class AccesoDatos {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
 	// TERCERA EVALUACION
 	public Connection conexion(String dominio, String bd, String usr, String clave) {
 		try {
@@ -43,95 +45,6 @@ public class AccesoDatos {
 		return null;
 
 	}
-
-	public void actualizaTabla(String dominio, String bd, String usr, String clave, String sql) {
-		try {
-			Connection conexion = this.conexion(dominio, bd, usr, clave);
-			// + " where 1=2"
-			Statement stm = conexion.createStatement();
-			int resultado = stm.executeUpdate(sql);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
-
-	public ArrayList<HashMap<String, Object>> getAllRecords(String dominio, String bd, String usr, String clave,
-			String tabla) {
-
-		try {
-			ArrayList<HashMap<String, Object>> registros = new ArrayList<HashMap<String, Object>>();
-			Connection conexion = this.conexion(dominio, bd, usr, clave);
-			String sql = "SELECT * FROM " + tabla;
-			// + " where 1=2"
-			Statement stm = conexion.createStatement();
-			ResultSet rs = stm.executeQuery(sql);
-
-			ResultSetMetaData metaData = rs.getMetaData();
-			rs.first();
-			if (rs.getRow() == 0) {
-				System.out.println("NO HAY REGISTROS");
-				stm.close();
-				rs.close();
-				return null;
-			} else
-				rs.beforeFirst();
-			while (rs.next()) {
-
-				HashMap<String, Object> registro = new HashMap<String, Object>();
-				registros.add(registro);
-				for (int i = 1; i <= metaData.getColumnCount(); i++) {
-					registro.put(metaData.getColumnName(i), rs.getString(i));
-					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
-				}
-
-				System.out.println();
-			}
-
-			stm.close();
-			rs.close();
-			return registros;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
-	}
-
-	public ArrayList<ArrayList<Object>> getAllRecords2(String dominio, String bd, String usr, String clave,
-			String tabla) {
-
-		try {
-			ArrayList<ArrayList<Object>> registros = new ArrayList<ArrayList<Object>>();
-			Connection conexion = this.conexion(dominio, bd, usr, clave);
-			String sql = "SELECT * FROM " + tabla;
-			Statement stm = conexion.createStatement();
-			ResultSet rs = stm.executeQuery(sql);
-			ResultSetMetaData metaData = rs.getMetaData();
-			// primera fila: nombres de campos
-			ArrayList<Object> registro = new ArrayList<Object>();
-			registros.add(registro);
-			for (int i = 1; i <= metaData.getColumnCount(); i++)
-				registro.add(metaData.getColumnName(i));
-			// resto filas: valores de los campos
-			while (rs.next()) {
-				registro = new ArrayList<Object>();
-				registros.add(registro);
-				for (int i = 1; i <= metaData.getColumnCount(); i++) {
-					registro.add(rs.getString(i));
-					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
-				}
-				System.out.println();
-			}
-			stm.close();
-			rs.close();
-			return registros;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
-	}
-	
-	
 	
 	//MENU MANTENIMIENTO TABLA EJERCICIO
 	
@@ -191,6 +104,8 @@ public class AccesoDatos {
 				//System.exit(0);
 			case "4":
 				System.out.println("Has seleccionado la opcion 4");
+				showDB();
+				opcion4Delete();
 				System.exit(0);
 			default:
 				System.out.println("\n Solo números entre 1 y 4");
@@ -395,7 +310,7 @@ public class AccesoDatos {
 	public void opcion3Update() {
 		String bd2 = seleccionarTable();
 		//System.out.println("En esta opción podra realizar consultas.");
-		System.out.println("\nEscriba el nombre de alguna de las siguientes tablas de la que desea consultar todos sus datos: ");
+		System.out.println("\nEscriba el nombre de alguna de las siguientes tablas para mostrarlas y poder realizar una sentencia sql valida");
 		try {
 			Scanner teclado = new Scanner(System.in);
 			Connection conexion = this.conexion("localhost", bd2 , "root", "");
@@ -434,12 +349,149 @@ public class AccesoDatos {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+		
+		public void opcion4Delete() {
+			String bd2 = seleccionarTable();
+			//System.out.println("En esta opción podra realizar consultas.");
+			System.out.println("\nEscri ");
+			try {
+				Scanner teclado = new Scanner(System.in);
+				Connection conexion = this.conexion("localhost", bd2 , "root", "");
+		        
+	            Statement stm = conexion.createStatement();
+	       
+			
+				
+				System.out.println("Escriba una sentencia valida para realizar el delete en una base de datos");
+				String sentencia = teclado.nextLine();
+				String sql2 =  sentencia;
+				System.out.println("¿Esta seguro de realizar el siguiente delete? habrá perdida de datos");
+				System.out.println("Escriba si en caso afirmativo o cualquier otra cosa para salir");
+				String validar = teclado.nextLine();
+				String si2 = "SI";
+				if(validar.equalsIgnoreCase(si2)) {
+					int rs1 = stm.executeUpdate(sql2);
+					System.out.println("Ha realizado el delete con éxito");
+					
+				}else {
+					menu();
+				}
+				
 
+				stm.close();
+
+				System.out.println("\n");
+				System.out.println("¿Desea seguir usando el programa?");
+				System.out.println("Escriba si en caso afirmativo o cualquier otra cosa para salir");
+				String validar2 = teclado.nextLine();
+				String si = "SI";
+				if(validar2.equalsIgnoreCase(si)) {
+					menu();
+				}else {
+					System.out.println("Hasta la próxima");
+					System.exit(0);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+
+	}
+
+	
+	
+
+	public void actualizaTabla(String dominio, String bd, String usr, String clave, String sql) {
+		try {
+			Connection conexion = this.conexion(dominio, bd, usr, clave);
+			// + " where 1=2"
+			Statement stm = conexion.createStatement();
+			int resultado = stm.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public ArrayList<HashMap<String, Object>> getAllRecords(String dominio, String bd, String usr, String clave,
+			String tabla) {
+
+		try {
+			ArrayList<HashMap<String, Object>> registros = new ArrayList<HashMap<String, Object>>();
+			Connection conexion = this.conexion(dominio, bd, usr, clave);
+			String sql = "SELECT * FROM " + tabla;
+			// + " where 1=2"
+			Statement stm = conexion.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+
+			ResultSetMetaData metaData = rs.getMetaData();
+			rs.first();
+			if (rs.getRow() == 0) {
+				System.out.println("NO HAY REGISTROS");
+				stm.close();
+				rs.close();
+				return null;
+			} else
+				rs.beforeFirst();
+			while (rs.next()) {
+
+				HashMap<String, Object> registro = new HashMap<String, Object>();
+				registros.add(registro);
+				for (int i = 1; i <= metaData.getColumnCount(); i++) {
+					registro.put(metaData.getColumnName(i), rs.getString(i));
+					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
+				}
+
+				System.out.println();
+			}
+
+			stm.close();
+			rs.close();
+			return registros;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+
+	public ArrayList<ArrayList<Object>> getAllRecords2(String dominio, String bd, String usr, String clave,
+			String tabla) {
+
+		try {
+			ArrayList<ArrayList<Object>> registros = new ArrayList<ArrayList<Object>>();
+			Connection conexion = this.conexion(dominio, bd, usr, clave);
+			String sql = "SELECT * FROM " + tabla;
+			Statement stm = conexion.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			ResultSetMetaData metaData = rs.getMetaData();
+			// primera fila: nombres de campos
+			ArrayList<Object> registro = new ArrayList<Object>();
+			registros.add(registro);
+			for (int i = 1; i <= metaData.getColumnCount(); i++)
+				registro.add(metaData.getColumnName(i));
+			// resto filas: valores de los campos
+			while (rs.next()) {
+				registro = new ArrayList<Object>();
+				registros.add(registro);
+				for (int i = 1; i <= metaData.getColumnCount(); i++) {
+					registro.add(rs.getString(i));
+					System.out.print(metaData.getColumnName(i) + " => " + rs.getString(i) + "\t");
+				}
+				System.out.println();
+			}
+			stm.close();
+			rs.close();
+			return registros;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 	
 	
 	
-	
+
 	
 	
 	
